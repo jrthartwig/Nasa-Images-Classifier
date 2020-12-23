@@ -2,10 +2,10 @@
 
 const ImageURLPoster = (props) => {
 
-    const { imageUrls } = props; 
+    const { images} = props; 
 
 
-    imageUrls.forEach(url => fetch(`https://localhost:44392/imageurl?imageurl=${url}`)
+    images.forEach(url => fetch(`https://localhost:44392/imageurl?imageurl=${images.img_src}`)
         .then((res) => console.log(res)));
 
     return (<div>predicting</div>)

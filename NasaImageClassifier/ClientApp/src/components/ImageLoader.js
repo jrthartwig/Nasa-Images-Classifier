@@ -5,6 +5,20 @@ const ImageLoader = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [images, setImages] = useState();
 
+    const PostImages = (images) => {
+        fetch(`https://localhost:44392/imageurl?imageurl=${images[0].img_src}`, {
+            method: 'POST'
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+
     useEffect(async () => {
         fetch(
             "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=2&api_key=cPmB3PNZCJGbJ8YYWhA7m8hbYu0z4yqxSoai7cu1"
@@ -22,6 +36,7 @@ const ImageLoader = () => {
             )
     }, []);
 
+
     if (error) {
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -32,7 +47,8 @@ const ImageLoader = () => {
                 <div>
                     {images.map((i, k) => (
                         <img key={k} src={i.img_src} />
-                    ))}
+                    ))
+                    }
                 </div>
             )) ||
             null
