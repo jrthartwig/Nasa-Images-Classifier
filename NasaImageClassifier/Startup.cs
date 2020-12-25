@@ -26,6 +26,8 @@ namespace NasaImageClassifier
                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
 
+            services.AddSwaggerDocument();
+
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -70,6 +72,9 @@ namespace NasaImageClassifier
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
         }
     }
 }
