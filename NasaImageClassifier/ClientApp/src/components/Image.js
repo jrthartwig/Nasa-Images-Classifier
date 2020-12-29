@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Image = (props) => {
 
     const { imageURL } = props;
+
+    const [prediction, setPrediction] = useState();
 
     useEffect(() => {
 
@@ -21,7 +23,8 @@ const Image = (props) => {
             };
 
             fetch("https://space-cadet-vision.cognitiveservices.azure.com/customvision/v3.0/Prediction/4457824c-3ee2-4619-ae00-edc640fd8dc1/classify/iterations/Iteration6/url", requestOptions)
-                .then((response) => response.text())
+                .then((response) => response.json())
+                .then(result => setPrediction(result.predictions))
                 .then(result => console.log(result))
                 .catch(error => console.log('error', error));
         }
@@ -30,6 +33,12 @@ const Image = (props) => {
     return (
         <div>
             <img src={imageURL} />
+            {
+                prediction &&
+                prediction.map((p, k) => (
+                    <div key={k}>{prediction && p.tagName}</div>
+                ))
+            }
         </div>)
 }
 
