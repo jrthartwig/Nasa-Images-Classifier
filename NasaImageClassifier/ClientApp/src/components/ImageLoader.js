@@ -30,7 +30,7 @@ const ImageLoader = () => {
             (images && (
                 <div>
                     {images.map((i, k) => (
-                        <Image key={k} imageUrl={i.img_src} />
+                        <Image key={k} imageURL={i.img_src} />
                     ))
                     }
                 </div>
